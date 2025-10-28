@@ -1,0 +1,73 @@
+
+<h1>{{ title }}</h1>
+
+{{#if error}}
+  <p class="red-text">{{error}}</p>
+{{/if}}
+
+<form action="/product/add" method="post" class="nice-form" enctype="multipart/form-data">
+    
+    <div class="input-field"> 
+        <input type="text" id="name" name="name" 
+               value="{{product.name}}" 
+               class="validate {{#if inputErrors.name}}invalid{{/if}}" 
+               required minlength="3" maxlength="30"> 
+        <label for="name">Product Name:</label>
+        {{#if inputErrors.name}}
+            <span class="helper-text red-text">{{inputErrors.name}}</span>
+        {{/if}}
+    </div>
+
+        <div class="btn blue">
+            <span>Upload Image</span>
+            <input type="file" name="image">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Optional">
+        </div>
+    </div>
+
+    <div class="input-field">
+        <textarea id="description" name="description" class="materialize-textarea">{{product.description}}</textarea>
+        <label for="description">Description:</label>
+    </div>
+
+    <div class="input-field">
+        <input type="number" id="price" name="price" 
+               value="{{product.price}}" 
+               class="validate {{#if inputErrors.price}}invalid{{/if}}"
+               required min="0" max="100000000"> 
+        <label for="price">Price:</label>
+        {{#if inputErrors.price}}
+            <span class="helper-text red-text">{{inputErrors.price}}</span>
+        {{/if}}
+    </div>
+
+    <div class="input-field">
+        <select id="category" name="category" required class="{{#if inputErrors.category}}invalid{{/if}}">
+            <option value="" disabled {{#unless product.category}}selected{{/unless}}>-- Select a Category --</option>
+            {{#each categoryList}}
+                <option value="{{this._id}}" 
+                        {{#equals this._id ../product.category}}selected{{/equals}}>
+                    {{this.name}}
+                </option>
+            {{/each}}
+        </select>
+        <label>Category:</label>
+        {{#if inputErrors.category}}
+            <span class="helper-text red-text">{{inputErrors.category}}</span>
+        {{/if}}
+    </div>
+
+    <button type="submit" class="btn waves-effect waves-light blue">
+        Add Product
+        <i class="material-icons right">add</i>
+    </button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+</script>

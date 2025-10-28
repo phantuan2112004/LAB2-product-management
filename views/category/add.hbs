@@ -1,0 +1,23 @@
+<form action="/category/add" method="post" class="nice-form"> 
+    <h1>Add new category</h1>
+    
+    <div class="input-field"> 
+        <input type="text" id="name" name="name" 
+               required                 
+               minlength="2"            
+               maxlength="10"           
+               class="validate">       
+        <label for="name">Enter category name</label>
+        <span class="helper-text" data-error="Name must be between 3 and 10 characters" data-success="Looks good!"></span>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="description" name="description" placeholder="Enter category description">
+        <label for="description">Description (optional)</label>
+    </div>
+
+    <button type="submit" class="btn waves-effect waves-light blue">
+        Add Category
+        <i class="material-icons right">add</i>
+    </button>
+</form> 

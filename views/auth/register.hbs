@@ -1,0 +1,35 @@
+<div class="container">
+    <h4 class="center-align bold">Customer Registration</h4>
+
+    <form action="/auth/register" method="post" 
+          onsubmit="return checkPass();"> 
+        <div class="row">
+            <div class="input-field col s12 m8 offset-m2">
+                <label for="username">Username</label>
+                <input class="validate" type="text" name="username" required id="username">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m8 offset-m2">
+                <label for="password">Password</label>
+                <input class="validate" type="password" name="password" required id="password"> 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m8 offset-m2">
+                <label for="retype">Retype Password</label>
+                <input class="validate" type="password" name="retype" required id="retype">
+                <span id="retype_error" class="helper-text red-text"></span> 
+            </div>
+        </div>
+
+        <div class="row center-align">
+            <button class="btn waves-effect waves-light blue" type="submit">
+                Register
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
