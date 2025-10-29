@@ -13,6 +13,8 @@ var usersRouter = require("./routes/users");
 var categoryRouter = require("./routes/category");
 var productRouter = require("./routes/product");
 var authRouter = require('./routes/auth');
+var apiRouter = require('./routes/api');
+const { checkLoginSession, checkAdminSession } = require('./middlewares/auth');
 
 var app = express();
 
@@ -40,8 +42,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
 hbs.registerHelper("equals", function (a, b, options) {
-  if (a && b && a.toString() === b.toString()) {
-    return options.fn(this);
+  if (a !== undefined && a !== null && b !== undefined && b !== null && a.toString() === b.toString()) {
+    return options.fn(this); 
   }
   return options.inverse(this);
 });
@@ -61,15 +63,22 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-  res.locals.username = req.session.username; 
+  if (req.session) { 
+    res.locals.username = req.session.username; 
+    res.locals.role = req.session.role; 
+  } else {
+    res.locals.username = undefined;
+    res.locals.role = undefined;
+  }
   next();
 });
 
 
 app.use('/auth', authRouter); 
-app.use("/category", categoryRouter);
+app.use("/category", checkAdminSession, categoryRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
+app.use('/api', apiRouter);
 app.use("/", indexRouter); 
 
 app.use(function (req, res, next) {
@@ -77,6 +86,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
+
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 

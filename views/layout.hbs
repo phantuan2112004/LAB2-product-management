@@ -15,8 +15,19 @@
                     <i class="material-icons">store</i>MyStore
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/product">Products</a></li>
-                    <li><a href="/category">Categories</a></li>
+                    <li>
+                        <a href="/product" {{#equals title 'Product Management'}}class="active"{{/equals}}>
+                            Products
+                        </a>
+                    </li>
+
+                    {{#equals role 'admin'}}
+                        <li>
+                            <a href="/category" {{#equals title 'Category Management'}}class="active"{{/equals}}>
+                                Categories
+                            </a>
+                        </li>
+                    {{/equals}}
 
                     {{#if username}}
                         <li><span style="padding: 0 15px;">Welcome, {{username}}!</span></li>

@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const checkLoginSession = require('../middlewares/auth'); // <-- Import middleware
 
 var CategoryModel = require("../models/CategoryModel");
 var ProductModel = require("../models/ProductModel");
 
 // === READ (GET) ===
-router.get('/', checkLoginSession, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         var categoryList = await CategoryModel.find({});
         res.render('category/index', {
@@ -20,11 +19,11 @@ router.get('/', checkLoginSession, async (req, res) => {
 });
 
 // === CREATE (GET/POST) ===
-router.get('/add', checkLoginSession, (req, res) => {
+router.get('/add', (req, res) => {
     res.render('category/add', { title: 'Add New Category' });
 });
 
-router.post('/add', checkLoginSession, async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
         var category = req.body;
         await CategoryModel.create(category);
@@ -40,7 +39,7 @@ router.post('/add', checkLoginSession, async (req, res) => {
 });
 
 // === UPDATE (GET/POST) ===
-router.get('/edit/:id', checkLoginSession, async (req, res) => {
+router.get('/edit/:id', async (req, res) => {
     try {
         var id = req.params.id;
         var category = await CategoryModel.findById(id);
@@ -54,7 +53,7 @@ router.get('/edit/:id', checkLoginSession, async (req, res) => {
     }
 });
 
-router.post('/edit/:id', checkLoginSession, async (req, res) => {
+router.post('/edit/:id', async (req, res) => {
     try {
         var id = req.params.id;
         var data = req.body;
@@ -72,7 +71,7 @@ router.post('/edit/:id', checkLoginSession, async (req, res) => {
 });
 
 // === DELETE (GET) ===
-router.get('/delete/:id', checkLoginSession, async (req, res) => {
+router.get('/delete/:id', async (req, res) => {
     try {
         var id = req.params.id;
         await CategoryModel.findByIdAndDelete(id);
@@ -84,7 +83,7 @@ router.get('/delete/:id', checkLoginSession, async (req, res) => {
 });
 
 // === ROUTE LỌC SẢN PHẨM THEO DANH MỤC ===
-router.get('/detail/:id', checkLoginSession, async (req, res) => {
+router.get('/detail/:id', async (req, res) => {
   try {
     var categoryId = req.params.id;
     var productList = await ProductModel.find({ category: categoryId }).populate('category');

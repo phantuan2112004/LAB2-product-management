@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
 
     const user = {
       username: userRegistration.username,
-      password: hashPassword 
+      password: hashPassword,
     };
 
     await UserModel.create(user);
@@ -43,6 +43,7 @@ router.post('/login', async (req, res) => {
 
       if (passwordMatch) {
         req.session.username = user.username;
+        req.session.role = user.role;
         res.redirect('/product'); 
       } else {
         res.render('auth/login', { error: 'Invalid username or password.' });

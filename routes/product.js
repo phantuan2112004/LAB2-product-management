@@ -1,11 +1,9 @@
-// routes/product.js (Phiên bản Hoàn Chỉnh - Đã thêm Middleware Bảo vệ)
-
-console.log("ĐANG CHẠY FILE ROUTES/PRODUCT.JS MỚI NHẤT!!!!"); // (Dòng debug)
+console.log("ĐANG CHẠY FILE ROUTES/PRODUCT.JS MỚI NHẤT!!!!");
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const checkLoginSession = require('../middlewares/auth'); // <-- Import middleware
+const  { checkLoginSession } = require('../middlewares/auth'); 
 
 var ProductModel = require("../models/ProductModel");
 var CategoryModel = require("../models/CategoryModel");
