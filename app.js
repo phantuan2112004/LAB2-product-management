@@ -96,5 +96,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(process.env.PORT || 3001);
 module.exports = app;
