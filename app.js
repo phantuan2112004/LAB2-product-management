@@ -1,5 +1,6 @@
 var createError = require("http-errors");
 var express = require("express");
+var cors = require('cors');
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
@@ -32,7 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.set("upload", upload);
 
-var database = "mongodb://localhost:27017/web";
+var database = "mongodb+srv://<001343294>:<tuan2112004>@tuancluster.xxxxx.mongodb.net/web";
 mongoose
   .connect(database)
   .then(() => console.log("Connected to MongoDB"))
@@ -53,6 +54,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
 const timeout = 1000 * 60 * 60 * 24; 
 app.use(session({
@@ -94,4 +96,5 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+app.listen(process.env.PORT || 3001);
 module.exports = app;
