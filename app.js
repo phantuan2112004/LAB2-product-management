@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.set("upload", upload);
 
-var database = "mongodb+srv://<001343294>:<tuan2112004>@tuancluster.xxxxx.mongodb.net/web";
+var database = "mongodb+srv://001343294:<tuan2112004>@tuancluster.hz3to.mongodb.net/?appName=TuanCluster";
 mongoose
   .connect(database)
   .then(() => console.log("Connected to MongoDB"))
@@ -95,5 +95,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
 
 module.exports = app;
